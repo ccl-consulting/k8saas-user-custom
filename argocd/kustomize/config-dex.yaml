@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+  namespace: k8saas-system
+data:
+  oidc.tls.insecure.skip.verify: "true" # TODO: Allow mounting custom certificates - current is letsencrypt-staging root CA
+  oidc.config: |
+    name: Dex
+    issuer: https://dex.k8saas-av.gcp.cloud.ccl-consulting.fr
+    clientID: argo-cd
+    clientSecret: argo-cd
+    skipAudienceCheckWhenTokenHasNoAudience: true
+    requestedScopes: ["openid", "profile", "email", "groups"]
+    requestedIDTokenClaims: {"groups": {"essential": true}}
