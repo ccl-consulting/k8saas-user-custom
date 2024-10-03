@@ -1,2 +1,2 @@
-patchesStrategicMerge:
-  - config-dex.yaml
+resources:
+- it-comes-from-custom.yaml
