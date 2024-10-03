@@ -1,2 +1,3 @@
 global:
-  domain: argocd.k8saas-av.gcp.cloud.ccl-consulting.fr
+  podLabels:
+    it-comes-from-custom: "true"
