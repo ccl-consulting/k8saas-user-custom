@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: it-comes-from-custom
   namespace: k8saas-system
-data:
+data: {}
