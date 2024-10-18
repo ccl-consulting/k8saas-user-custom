@@ -7,7 +7,6 @@ resources:
 components:
 - https://github.com/GoogleCloudPlatform/microservices-demo//kustomize/components/network-policies?ref=6af73dcf7fe1ca653d95ae7a29e12faf8cf02964
 - https://github.com/GoogleCloudPlatform/microservices-demo//kustomize/components/non-public-frontend?ref=6af73dcf7fe1ca653d95ae7a29e12faf8cf02964
-- https://github.com/GoogleCloudPlatform/microservices-demo//kustomize/components/without-loadgenerator?ref=6af73dcf7fe1ca653d95ae7a29e12faf8cf02964
 - https://github.com/GoogleCloudPlatform/microservices-demo//kustomize/components/cymbal-branding?ref=6af73dcf7fe1ca653d95ae7a29e12faf8cf02964
 patches:
 - path: patch-enable-tracing.yaml
