@@ -1,0 +1,118 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: checkoutservice
+spec:
+  template:
+    spec:
+      containers:
+        - name: server
+          env:
+          - name: COLLECTOR_SERVICE_ADDR
+            value: "tempo.k8saas-system.svc:4317"
+          - name: OTEL_SERVICE_NAME
+            value: "checkoutservice"
+          - name: ENABLE_TRACING
+            value: "1"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: currencyservice
+spec:
+  template:
+    spec:
+      containers:
+        - name: server
+          env:
+          - name: COLLECTOR_SERVICE_ADDR
+            value: "tempo.k8saas-system.svc:4317"
+          - name: OTEL_SERVICE_NAME
+            value: "currencyservice"
+          - name: ENABLE_TRACING
+            value: "1"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: emailservice
+spec:
+  template:
+    spec:
+      containers:
+        - name: server
+          env:
+          - name: COLLECTOR_SERVICE_ADDR
+            value: "tempo.k8saas-system.svc:4317"
+          - name: OTEL_SERVICE_NAME
+            value: "emailservice"
+          - name: ENABLE_TRACING
+            value: "1"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  template:
+    spec:
+      containers:
+        - name: server
+          env:
+          - name: COLLECTOR_SERVICE_ADDR
+            value: "tempo.k8saas-system.svc:4317"
+          - name: OTEL_SERVICE_NAME
+            value: "frontend"
+          - name: ENABLE_TRACING
+            value: "1"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: paymentservice
+spec:
+  template:
+    spec:
+      containers:
+        - name: server
+          env:
+          - name: COLLECTOR_SERVICE_ADDR
+            value: "tempo.k8saas-system.svc:4317"
+          - name: OTEL_SERVICE_NAME
+            value: "paymentservice"
+          - name: ENABLE_TRACING
+            value: "1"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: productcatalogservice
+spec:
+  template:
+    spec:
+      containers:
+        - name: server
+          env:
+          - name: COLLECTOR_SERVICE_ADDR
+            value: "tempo.k8saas-system.svc:4317"
+          - name: OTEL_SERVICE_NAME
+            value: "productcatalogservice"
+          - name: ENABLE_TRACING
+            value: "1"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recommendationservice
+spec:
+  template:
+    spec:
+      containers:
+        - name: server
+          env:
+          - name: COLLECTOR_SERVICE_ADDR
+            value: "tempo.k8saas-system.svc:4317"
+          - name: OTEL_SERVICE_NAME
+            value: "recommendationservice"
+          - name: ENABLE_TRACING
+            value: "1"
