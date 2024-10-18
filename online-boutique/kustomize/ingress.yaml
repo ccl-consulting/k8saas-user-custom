@@ -11,17 +11,47 @@ metadata:
 spec:
   ingressClassName: ref+file://config.yaml#/ingress/defaultClass+
   rules:
-    - host: shop.ref+file://config.yaml#/ingress/domainName+
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: frontend
-                port:
-                  name: http
+  - host: shop.ref+file://config.yaml#/ingress/domainName+
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend
+            port:
+              name: http
   tls:
-    - hosts:
-      - shop.ref+file://config.yaml#/ingress/domainName+
-      secretName: tls-online-boutique
+  - hosts:
+    - shop.ref+file://config.yaml#/ingress/domainName+
+    secretName: tls-online-boutique
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: frontend-protected
+  annotations:
+    cert-manager.io/cluster-issuer: ref+file://config.yaml#/ingress/defaultClusterIssuer+
+    nginx.ingress.kubernetes.io/auth-url: http://oauth2-proxy.k8saas-system.svc.cluster.local/oauth2/auth
+    nginx.ingress.kubernetes.io/auth-signin: https://oauth2-proxy.ref+file://config.yaml#/ingress/domainName+/oauth2/sign_in
+    # Inject a logout button
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header Accept-Encoding ""; # The http_sub_module doesn't support compression from the ingress to the backend application
+      sub_filter "</body>" "<script>(function(){document.addEventListener('DOMContentLoaded',function(){document.body.insertAdjacentHTML('beforeend','<a href=\"https://oauth2-proxy.ref+file://config.yaml#/ingress/domainName+/oauth2/sign_out?rd=https://shop.ref+file://config.yaml#/ingress/domainName+\" style=\"position:fixed;bottom:10px;right:10px;background-color:#f44336;color:white;padding:5px;border-radius:3px;text-decoration:none;font-family:sans-serif;\">Logout</a>')})})()</script></body>";  name: frontend-protected
+spec:
+  ingressClassName: ref+file://config.yaml#/ingress/defaultClass+
+  rules:
+  - host: shop.ref+file://config.yaml#/ingress/domainName+
+    http:
+      paths:
+      - backend:
+          service:
+            name: frontend
+            port:
+              name: http
+        path: /cart
+        pathType: Prefix
+  tls:
+  - hosts:
+    - shop.ref+file://config.yaml#/ingress/domainName+
+    secretName: tls-online-boutique
