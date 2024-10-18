@@ -26,7 +26,6 @@ data:
       "editable": true,
       "fiscalYearStartMonth": 0,
       "graphTooltip": 0,
-      "id": 53,
       "links": [],
       "panels": [
         {
@@ -74,7 +73,7 @@ data:
           "gridPos": {
             "h": 3,
             "w": 4,
-            "x": 8,
+            "x": 0,
             "y": 0
           },
           "id": 12,
@@ -161,7 +160,7 @@ data:
           "gridPos": {
             "h": 3,
             "w": 4,
-            "x": 12,
+            "x": 4,
             "y": 0
           },
           "id": 13,
@@ -201,6 +200,145 @@ data:
             }
           ],
           "title": "Sync Status",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "default": false,
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "decimals": 2,
+              "displayName": "",
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "short"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Last *"
+                },
+                "properties": [
+                  {
+                    "id": "displayName",
+                    "value": "TTL"
+                  },
+                  {
+                    "id": "unit",
+                    "value": "s"
+                  },
+                  {
+                    "id": "thresholds",
+                    "value": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "rgba(245, 54, 54, 0.9)",
+                          "value": null
+                        },
+                        {
+                          "color": "rgba(237, 129, 40, 0.89)",
+                          "value": 0
+                        },
+                        {
+                          "color": "rgba(50, 172, 45, 0.97)",
+                          "value": 691200
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Field"
+                },
+                "properties": [
+                  {
+                    "id": "displayName",
+                    "value": "Host"
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 3,
+            "x": 21,
+            "y": 0
+          },
+          "id": 11,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "11.2.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "avg(nginx_ingress_controller_ssl_expire_time_seconds{exported_namespace=~\"$namespace\"}) by (host) - time()",
+              "format": "time_series",
+              "instant": true,
+              "intervalFactor": 1,
+              "legendFormat": "{{value}}",
+              "metric": "gke_letsencrypt_cert_expiration",
+              "range": false,
+              "refId": "A",
+              "step": 1
+            }
+          ],
+          "title": "TLS Certificate Expiry",
+          "transformations": [
+            {
+              "id": "reduce",
+              "options": {
+                "includeTimeField": false,
+                "labelsToFields": false,
+                "reducers": [
+                  "lastNotNull"
+                ]
+              }
+            }
+          ],
           "type": "stat"
         },
         {
@@ -505,152 +643,6 @@ data:
         {
           "datasource": {
             "default": false,
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "align": "auto",
-                "cellOptions": {
-                  "type": "auto"
-                },
-                "inspect": false
-              },
-              "decimals": 2,
-              "displayName": "",
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "short"
-            },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Last *"
-                },
-                "properties": [
-                  {
-                    "id": "displayName",
-                    "value": "TTL"
-                  },
-                  {
-                    "id": "unit",
-                    "value": "s"
-                  },
-                  {
-                    "id": "custom.cellOptions",
-                    "value": {
-                      "type": "color-background"
-                    }
-                  },
-                  {
-                    "id": "thresholds",
-                    "value": {
-                      "mode": "absolute",
-                      "steps": [
-                        {
-                          "color": "rgba(245, 54, 54, 0.9)",
-                          "value": null
-                        },
-                        {
-                          "color": "rgba(237, 129, 40, 0.89)",
-                          "value": 0
-                        },
-                        {
-                          "color": "rgba(50, 172, 45, 0.97)",
-                          "value": 691200
-                        }
-                      ]
-                    }
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Field"
-                },
-                "properties": [
-                  {
-                    "id": "displayName",
-                    "value": "Host"
-                  }
-                ]
-              }
-            ]
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 24,
-            "x": 0,
-            "y": 10
-          },
-          "id": 11,
-          "options": {
-            "cellHeight": "sm",
-            "footer": {
-              "countRows": false,
-              "enablePagination": false,
-              "fields": "",
-              "reducer": [
-                "sum"
-              ],
-              "show": false
-            },
-            "showHeader": true
-          },
-          "pluginVersion": "11.2.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
-              },
-              "editorMode": "code",
-              "expr": "avg(nginx_ingress_controller_ssl_expire_time_seconds{exported_namespace=~\"$namespace\"}) by (host) - time()",
-              "format": "time_series",
-              "intervalFactor": 1,
-              "legendFormat": "{{ host }}",
-              "metric": "gke_letsencrypt_cert_expiration",
-              "range": true,
-              "refId": "A",
-              "step": 1
-            }
-          ],
-          "title": "Ingress Certificate Expiry",
-          "transformations": [
-            {
-              "id": "reduce",
-              "options": {
-                "includeTimeField": false,
-                "labelsToFields": false,
-                "reducers": [
-                  "lastNotNull"
-                ]
-              }
-            }
-          ],
-          "type": "table"
-        },
-        {
-          "datasource": {
-            "default": false,
             "type": "datasource",
             "uid": "-- Mixed --"
           },
@@ -724,9 +716,9 @@ data:
           },
           "gridPos": {
             "h": 14,
-            "w": 24,
+            "w": 12,
             "x": 0,
-            "y": 14
+            "y": 10
           },
           "id": 8,
           "options": {
@@ -756,79 +748,9 @@ data:
               "legendFormat": "",
               "range": false,
               "refId": "A"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
-              },
-              "editorMode": "code",
-              "exemplar": false,
-              "expr": "sum(\n  node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{cluster=\"$cluster\", namespace=\"$namespace\"}\n* on(namespace,pod)\n  group_left(workload, workload_type) namespace_workload_pod:kube_pod_owner:relabel{cluster=\"$cluster\", namespace=\"$namespace\", workload_type=~\"$type\"}\n) by (workload, workload_type)\n",
-              "format": "table",
-              "instant": true,
-              "legendFormat": "__auto",
-              "range": false,
-              "refId": "B"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
-              },
-              "editorMode": "code",
-              "exemplar": false,
-              "expr": "sum(\n  kube_pod_container_resource_requests{job=\"kube-state-metrics\", cluster=\"$cluster\", namespace=\"$namespace\", resource=\"cpu\"}\n* on(namespace,pod)\n  group_left(workload, workload_type) namespace_workload_pod:kube_pod_owner:relabel{cluster=\"$cluster\", namespace=\"$namespace\", workload_type=~\"$type\"}\n) by (workload, workload_type)\n",
-              "format": "table",
-              "instant": true,
-              "legendFormat": "",
-              "range": false,
-              "refId": "C"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
-              },
-              "editorMode": "code",
-              "exemplar": false,
-              "expr": "sum(\n  node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{cluster=\"$cluster\", namespace=\"$namespace\"}\n* on(namespace,pod)\n  group_left(workload, workload_type) namespace_workload_pod:kube_pod_owner:relabel{cluster=\"$cluster\", namespace=\"$namespace\", workload_type=~\"$type\"}\n) by (workload, workload_type)\n/sum(\n  kube_pod_container_resource_requests{job=\"kube-state-metrics\", cluster=\"$cluster\", namespace=\"$namespace\", resource=\"cpu\"}\n* on(namespace,pod)\n  group_left(workload, workload_type) namespace_workload_pod:kube_pod_owner:relabel{cluster=\"$cluster\", namespace=\"$namespace\", workload_type=~\"$type\"}\n) by (workload, workload_type)\n",
-              "format": "table",
-              "instant": true,
-              "legendFormat": "",
-              "range": false,
-              "refId": "D"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
-              },
-              "editorMode": "code",
-              "exemplar": false,
-              "expr": "sum(\n  kube_pod_container_resource_limits{job=\"kube-state-metrics\", cluster=\"$cluster\", namespace=\"$namespace\", resource=\"cpu\"}\n* on(namespace,pod)\n  group_left(workload, workload_type) namespace_workload_pod:kube_pod_owner:relabel{cluster=\"$cluster\", namespace=\"$namespace\", workload_type=~\"$type\"}\n) by (workload, workload_type)\n",
-              "format": "table",
-              "instant": true,
-              "legendFormat": "",
-              "range": false,
-              "refId": "E"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
-              },
-              "editorMode": "code",
-              "exemplar": false,
-              "expr": "sum(\n  node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{cluster=\"$cluster\", namespace=\"$namespace\"}\n* on(namespace,pod)\n  group_left(workload, workload_type) namespace_workload_pod:kube_pod_owner:relabel{cluster=\"$cluster\", namespace=\"$namespace\", workload_type=~\"$type\"}\n) by (workload, workload_type)\n/sum(\n  kube_pod_container_resource_limits{job=\"kube-state-metrics\", cluster=\"$cluster\", namespace=\"$namespace\", resource=\"cpu\"}\n* on(namespace,pod)\n  group_left(workload, workload_type) namespace_workload_pod:kube_pod_owner:relabel{cluster=\"$cluster\", namespace=\"$namespace\", workload_type=~\"$type\"}\n) by (workload, workload_type)\n",
-              "format": "table",
-              "instant": true,
-              "legendFormat": "",
-              "range": false,
-              "refId": "F"
             }
           ],
-          "title": "CPU Quota",
+          "title": "Workload",
           "transformations": [
             {
               "id": "joinByField",
@@ -854,6 +776,7 @@ data:
                   "workload_type 5": true,
                   "workload_type 6": true
                 },
+                "includeByName": {},
                 "indexByName": {
                   "Time 1": 0,
                   "Time 2": 1,
@@ -876,6 +799,8 @@ data:
                   "workload_type 6": 18
                 },
                 "renameByName": {
+                  "Time": "",
+                  "Value": "Running Pods",
                   "Value #A": "Running Pods",
                   "Value #B": "CPU Usage",
                   "Value #C": "CPU Requests",
@@ -883,6 +808,7 @@ data:
                   "Value #E": "CPU Limits",
                   "Value #F": "CPU Limits %",
                   "workload": "Workload",
+                  "workload_type": "Type",
                   "workload_type 1": "Type"
                 }
               }
@@ -1005,8 +931,8 @@ data:
           "gridPos": {
             "h": 7,
             "w": 12,
-            "x": 0,
-            "y": 28
+            "x": 12,
+            "y": 10
           },
           "id": 5,
           "interval": "1m",
@@ -1159,7 +1085,7 @@ data:
             "h": 7,
             "w": 12,
             "x": 12,
-            "y": 28
+            "y": 17
           },
           "id": 6,
           "interval": "1m",
@@ -1205,16 +1131,16 @@ data:
             "h": 7,
             "w": 24,
             "x": 0,
-            "y": 35
+            "y": 24
           },
           "id": 1,
           "options": {
             "dedupStrategy": "none",
-            "enableLogDetails": false,
+            "enableLogDetails": true,
             "prettifyLogMessage": false,
             "showCommonLabels": false,
-            "showLabels": false,
-            "showTime": false,
+            "showLabels": true,
+            "showTime": true,
             "sortOrder": "Descending",
             "wrapLogMessage": false
           },
@@ -1225,7 +1151,7 @@ data:
                 "uid": "P8E80F9AEF21F6940"
               },
               "editorMode": "code",
-              "expr": "{namespace=\"online-boutique\"} | json | line_format \"{{.message}}\"",
+              "expr": "{namespace=\"online-boutique\"} | json | line_format \"{{.message}}\" | drop app,container_id,message,pod_id,pod_template_hash,service_name,time",
               "legendFormat": "{{name}}",
               "queryType": "range",
               "refId": "A"
@@ -1287,8 +1213,8 @@ data:
       },
       "timepicker": {},
       "timezone": "browser",
-      "title": "Demo",
-      "uid": "Demo",
-      "version": 12,
+      "title": "Online Boutique",
+      "uid": "online-boutique",
+      "version": 1,
       "weekStart": ""
     }
