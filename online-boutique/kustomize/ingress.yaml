@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: frontend
+  annotations:
+    cert-manager.io/cluster-issuer: ref+file://config.yaml#/ingress/defaultClusterIssuer+
+    forecastle.stakater.com/expose: "true"
+    forecastle.stakater.com/appName: "Shop"
+    forecastle.stakater.com/group: "Apps"
+    forecastle.stakater.com/icon: "https://raw.githubusercontent.com/GoogleCloudPlatform/microservices-demo/b6ab75e675ea1e1c3b856327d6116b832b60e88f/src/frontend/static/icons/Cymbal_NavLogo.svg"
+spec:
+  ingressClassName: ref+file://config.yaml#/ingress/defaultClass+
+  rules:
+    - host: shop.ref+file://config.yaml#/ingress/domainName+
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend
+                port:
+                  name: http
+  tls:
+    - hosts:
+      - shop.ref+file://config.yaml#/ingress/domainName+
+      secretName: tls-online-boutique
