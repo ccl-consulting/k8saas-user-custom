@@ -17,4 +17,4 @@ components:
 patches:
 - path: patch-enable-tracing.yaml
 - path: patch-frontend-admin-panel.yaml
-- path: patch-increase-load.yaml
+- path: patch-loadgenerator-config.yaml

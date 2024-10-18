@@ -1,0 +1,15 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loadgenerator
+spec:
+  template:
+    spec:
+      containers:
+      - name: main
+        env:
+        ## TODO: Change frontend addr to the ingress endpoint once https://github.com/GoogleCloudPlatform/microservices-demo/pull/2775 is merged
+        # - name: FRONTEND_ADDR
+        #   value: shop.ref+file://config.yaml#/ingress/domainName+:443
+        - name: USERS
+          value: "30"
