@@ -1,0 +1,27 @@
+---
+apiVersion: sloth.slok.dev/v1
+kind: PrometheusServiceLevel
+metadata:
+  name: online-boutique-slo
+spec:
+  service: "external"
+  slos:
+    - name: "online-boutique-available"
+      objective: 99.0
+      description: "The online-boutique should serve requests without errors 99% of the time"
+      sli:
+        events:
+          errorQuery: sum(rate(nginx_ingress_controller_requests{host="shop.ref+file://config.yaml#/ingress/domainName+",status=~"(5..|429)"}[{{.window}}]))
+          totalQuery: sum(rate(nginx_ingress_controller_requests{host="shop.ref+file://config.yaml#/ingress/domainName+"}[{{.window}}]))
+      alerting:
+        name: OnlineBoutiqueNotAvailable
+        labels:
+          category: "availability"
+        annotations:
+          summary: "https://shop.ref+file://config.yaml#/ingress/domainName+/ is not available"
+        pageAlert:
+          labels:
+            severity: page
+        ticketAlert:
+          labels:
+            severity: ticket
