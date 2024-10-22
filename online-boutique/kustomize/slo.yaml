@@ -5,8 +5,6 @@ metadata:
   name: online-boutique-slo
 spec:
   service: "external"
-  labels:
-    owner: "ccl"
   slos:
     - name: "online-boutique-available"
       objective: 99.0
@@ -23,9 +21,7 @@ spec:
           summary: "https://shop.ref+file://config.yaml#/ingress/domainName+/ is not available"
         pageAlert:
           labels:
-            severity: pageteam
-            routing_key: ccl
+            severity: page
         ticketAlert:
           labels:
-            severity: "slack"
-            slack_channel: "#alerts-k8saas"
+            severity: ticket
