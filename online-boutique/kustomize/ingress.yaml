@@ -8,6 +8,10 @@ metadata:
     forecastle.stakater.com/appName: "Shop"
     forecastle.stakater.com/group: "Apps"
     forecastle.stakater.com/icon: "https://raw.githubusercontent.com/GoogleCloudPlatform/microservices-demo/b6ab75e675ea1e1c3b856327d6116b832b60e88f/src/frontend/static/icons/Cymbal_NavLogo.svg"
+    # Inject an admin link
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header Accept-Encoding ""; # The http_sub_module doesn't support compression from the ingress to the backend application
+      sub_filter "</body>" "<script>(function(){document.addEventListener('DOMContentLoaded',function(){document.body.insertAdjacentHTML('beforeend','<a href=\"/static/admin\" style=\"position:fixed;bottom:10px;right:10px;background-color:#2c0678;color:white;padding:5px;border-radius:3px;text-decoration:none;font-family:sans-serif;\">Admin</a>')})})()</script></body>";
 spec:
   ingressClassName: ref+file://config.yaml#/ingress/defaultClass+
   rules:
@@ -53,7 +57,7 @@ spec:
             name: frontend
             port:
               name: http
-        path: /admin
+        path: /static/admin/
         pathType: Prefix
   tls:
   - hosts:
