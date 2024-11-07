@@ -29,7 +29,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: frontend-protected
+  name: frontend-admin
   annotations:
     cert-manager.io/cluster-issuer: ref+file://config.yaml#/ingress/defaultClusterIssuer+
     nginx.ingress.kubernetes.io/auth-url: http://oauth2-proxy.k8saas-system.svc.cluster.local/oauth2/auth
@@ -49,7 +49,7 @@ spec:
             name: frontend
             port:
               name: http
-        path: /cart
+        path: /admin
         pathType: Prefix
   tls:
   - hosts:
