@@ -1,3 +1,6 @@
+# Note: Kustomize pull timeout is global, a value of 27s (the default) applies to the whole kustomization.
+# This timeout was increased to 90s using the query string configuration method.
+# https://github.com/kubernetes-sigs/kustomize/issues/5298 would greatly reduce this clone time.
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: online-boutique
