@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  template:
+    spec:
+      containers:
+        - name: server
+          volumeMounts:
+            - mountPath: /src/static/admin
+              name: frontend-admin-panel
+      volumes:
+        - name: frontend-admin-panel
+          configMap:
+            name: frontend-admin-panel

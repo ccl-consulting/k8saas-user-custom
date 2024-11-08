@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-admin-panel
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Administration - Cymbal Shop</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="flex flex-col min-h-screen bg-gray-50 font-sans antialiased">
+        <nav class="bg-white shadow">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16">
+                    <div class="flex">
+                        <a href="/" class="flex-shrink-0 flex items-center">
+                            <img class="h-8 w-auto" src="/static/icons/Cymbal_NavLogo.svg" alt="Cymbal Shop Logo">
+                        </a>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <a href="#" class="text-gray-700 hover:text-gray-900">Dashboard</a>
+                        <a href="#" class="text-gray-700 hover:text-gray-900">Products</a>
+                        <a href="#" class="text-gray-700 hover:text-gray-900">Ads</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <main class="flex-grow mt-8 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h1 class="text-2xl font-bold text-gray-800 mb-4">Shop Administration</h1>
+                <p class="text-gray-600 mb-6">Welcome to the admin panel! Our goal: keep the shop running smoothly and make sure no cymbals are harmed in the process.</p>
+            </div>
+        </main>
+        <footer class="bg-gray-100">
+            <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 text-center text-gray-500">
+                &copy; 2024 Cymbal Shop. All rights reserved.
+            </div>
+        </footer>
+    </body>
+    </html>
