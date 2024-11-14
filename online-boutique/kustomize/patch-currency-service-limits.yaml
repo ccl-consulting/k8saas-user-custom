@@ -1,0 +1,12 @@
+# See https://github.com/GoogleCloudPlatform/microservices-demo/issues/2400
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: currencyservice
+spec:
+  template:
+    spec:
+      containers:
+      - name: server
+        resources:
+          limits: null

@@ -1,0 +1,20 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loadgenerator
+spec:
+  template:
+    spec:
+      containers:
+      - name: main
+        # TODO: Use upstream image when https://github.com/GoogleCloudPlatform/microservices-demo/pull/2775 is released
+        image: ghcr.io/aslafy-z/microservices-demo/loadgenerator:pr-2775
+        imagePullPolicy: Always
+        env:
+        - name: FRONTEND_ADDR
+          value: shop.ref+file://config.yaml#/ingress/domainName+:443
+        - name: FRONTEND_PROTO
+          value: https
+        - name: USERS
+          value: "240"

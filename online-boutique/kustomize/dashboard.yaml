@@ -103,7 +103,7 @@ data:
               },
               "editorMode": "code",
               "exemplar": false,
-              "expr": "argocd_app_info{dest_namespace=~\"$namespace\", health_status=\"Healthy\"}",
+              "expr": "argocd_app_info{dest_namespace=~\"$namespace\", health_status=\"Healthy\"} or on() vector(0)",
               "format": "table",
               "instant": true,
               "intervalFactor": 1,
