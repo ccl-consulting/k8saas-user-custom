@@ -1,4 +1,4 @@
----
+# See https://github.com/GoogleCloudPlatform/microservices-demo/issues/2400
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -9,6 +9,4 @@ spec:
       containers:
       - name: server
         resources:
-          limits:
-            cpu: 400m
-            memory: 256Mi
+          limits: null
