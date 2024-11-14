@@ -1,21 +1,21 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: loadgenerator-coredns-config
-  namespace: default
-data:
-  Corefile: |
-    .:53 {
-        errors
-        log
-        hosts {
-            ttl 60
-            shop.ref+file://config.yaml#/ingress/domainName+ ingress-nginx-controller.k8saas-system.svc.cluster.local
-            fallthrough
-        }
-        forward . /etc/resolv.conf
-        cache 30
-    }
+# apiVersion: v1
+# kind: ConfigMap
+# metadata:
+#   name: loadgenerator-coredns-config
+#   namespace: default
+# data:
+#   Corefile: |
+#     .:53 {
+#         errors
+#         log
+#         hosts {
+#             ttl 60
+#             shop.ref+file://config.yaml#/ingress/domainName+ ingress-nginx-controller.k8saas-system.svc.cluster.local
+#             fallthrough
+#         }
+#         forward . /etc/resolv.conf
+#         cache 30
+#     }
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -28,24 +28,34 @@ spec:
       - name: main
         # TODO: Use upstream image when https://github.com/GoogleCloudPlatform/microservices-demo/pull/2775 is released
         image: ghcr.io/aslafy-z/microservices-demo/loadgenerator:pr-2775
+        imagePullPolicy: Always
         env:
         - name: FRONTEND_ADDR
           value: shop.ref+file://config.yaml#/ingress/domainName+:443
+        - name: FRONTEND_PROTO
+          value: https
         - name: USERS
           value: "30"
-      sidecarContainers:
-        - name: coredns-sidecar
-          image: coredns/coredns:1.9.4
-          args: ["-conf", "/etc/coredns/Corefile"]
-          ports:
-            - containerPort: 53
-              protocol: UDP
-            - containerPort: 53
-              protocol: TCP
-          volumeMounts:
-            - name: coredns-config-volume
-              mountPath: /etc/coredns
-      volumes:
-        - name: coredns-config-volume
-          configMap:
-            name: loadgenerator-coredns-config
+      # sidecarContainers:
+      #   - name: coredns-sidecar
+      #     image: coredns/coredns:1.9.4
+      #     args: ["-conf", "/etc/coredns/Corefile"]
+      #     ports:
+      #       - containerPort: 53
+      #         protocol: UDP
+      #       - containerPort: 53
+      #         protocol: TCP
+      #     volumeMounts:
+      #       - name: coredns-config-volume
+      #         mountPath: /etc/coredns
+      # volumes:
+      #   - name: coredns-config-volume
+      #     configMap:
+      #       name: loadgenerator-coredns-config
+      # dnsPolicy: "None"
+      # dnsConfig:
+      #   nameservers:
+      #   - 127.0.0.1
+      #   options:
+      #     - name: ndots
+      #       value: "0"
