@@ -18,3 +18,4 @@ patches:
 - path: patch-enable-tracing.yaml
 - path: patch-frontend-admin-panel.yaml
 - path: patch-loadgenerator-config.yaml
+- path: patch-currency-service-limits.yaml
