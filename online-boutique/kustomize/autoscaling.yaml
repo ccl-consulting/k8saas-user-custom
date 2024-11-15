@@ -144,7 +144,7 @@ spec:
     kind: Deployment
     name: currencyservice
   minReplicas: 1
-  maxReplicas: 4
+  maxReplicas: 6
   metrics:
   - type: Resource
     resource:
