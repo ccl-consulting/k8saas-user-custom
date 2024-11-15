@@ -1,27 +1,24 @@
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
 metadata:
-  name: frontend
+  name: frontend-scaler
 spec:
   scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
     name: frontend
-  minReplicas: 2
-  maxReplicas: 4
-  metrics:
-  - type: Resource
-    resource:
-      name: cpu
-      target:
-        type: Utilization
-        averageUtilization: 70
-  - type: Resource
-    resource:
-      name: memory
-      target:
-        type: Utilization
-        averageUtilization: 80
+    kind: Deployment
+  minReplicaCount: 2
+  maxReplicaCount: 10
+  pollingInterval: 15
+  cooldownPeriod: 300
+  triggers:
+    - type: prometheus
+      metadata:
+        serverAddress: http://prometheus-kube-prometheus-stack.k8saas-system.svc.cluster.local.:9090
+        metricName: nginx_ingress_requests
+        threshold: '50'
+        query: |
+          sum(rate(nginx_ingress_controller_requests{namespace="online-boutique",service="frontend",status!~"[4-5].*"}[2m]))
+        activationThreshold: '5'
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
