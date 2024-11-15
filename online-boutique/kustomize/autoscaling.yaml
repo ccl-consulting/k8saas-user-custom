@@ -13,7 +13,7 @@ spec:
   triggers:
     - type: prometheus
       metadata:
-        serverAddress: http://prometheus-kube-prometheus-stack.k8saas-system.svc.cluster.local.:9090
+        serverAddress: http://kube-prometheus-stack-prometheus.k8saas-system.svc.cluster.local.:9090
         metricName: nginx_ingress_requests
         threshold: '50'
         query: |
