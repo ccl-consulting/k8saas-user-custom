@@ -6,7 +6,6 @@ metadata:
 spec:
   paused: false
   schedule: 0 1 * * *
-  useOwnerReferencesInBackup: false
   template:
     includedNamespaces:
-    - 'online-boutique'
+    - online-boutique
