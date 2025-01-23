@@ -17,4 +17,4 @@ spec:
         - name: FRONTEND_PROTO
           value: https
         - name: USERS
-          value: "240"
+          value: "600"
