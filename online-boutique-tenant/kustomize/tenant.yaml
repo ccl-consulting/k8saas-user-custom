@@ -6,7 +6,7 @@ metadata:
     app.kubernetes.io/type: prod
 spec:
   owners:
-  - name: demo
+  - name: oidc:guest@k8saas.io
     kind: User
   namespaceOptions:
     quota: 1
