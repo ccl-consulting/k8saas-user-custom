@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: online-boutique
+  name: online-boutique-tenant
   namespace: k8saas-system
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: online-boutique
+    namespace: k8saas-system
     name: in-cluster
-  project: online-boutique
+  project: k8saas
   source:
-    path: online-boutique
+    path: online-boutique-tenant
     repoURL: http://gitea-http.k8saas-system.svc:3000/root/k8saas-frozen
     targetRevision: HEAD
   syncPolicy:

@@ -1,0 +1,38 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: online-boutique-role
+rules:
+- apiGroups:
+  - velero.io
+  resources:
+  - schedules
+  verbs:
+  - create
+  - patch
+  - update
+  - delete
+- apiGroups:
+  - sloth.slok.dev
+  resources:
+  - prometheusservicelevels
+  verbs:
+  - create
+  - patch
+  - update
+  - delete
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: online-boutique-role
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: online-boutique-role
+subjects:
+- namespace: k8saas-system-capsule-serviceaccounts
+  kind: ServiceAccount
+  name: online-boutique
+---  
