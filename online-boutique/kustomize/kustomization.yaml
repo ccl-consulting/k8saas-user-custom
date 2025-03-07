@@ -15,7 +15,7 @@ resources:
 - ingress.yaml
 - dashboard.yaml
 - slo.yaml
-- velero-backup.yaml
+- velero-schedule.yaml
 components:
 - https://github.com/GoogleCloudPlatform/microservices-demo//kustomize/components/network-policies?timeout=90s&ref=6af73dcf7fe1ca653d95ae7a29e12faf8cf02964
 - https://github.com/GoogleCloudPlatform/microservices-demo//kustomize/components/non-public-frontend?timeout=90s&ref=6af73dcf7fe1ca653d95ae7a29e12faf8cf02964

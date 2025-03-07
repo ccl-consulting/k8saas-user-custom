@@ -1,11 +1,12 @@
 apiVersion: velero.io/v1
 kind: Schedule
 metadata:
-  name: online-boutique-backup
+  name: online-boutique
   namespace: k8saas-system
 spec:
   paused: false
   schedule: 0 1 * * *
   template:
+    ttl: 168h0m0s
     includedNamespaces:
     - online-boutique
