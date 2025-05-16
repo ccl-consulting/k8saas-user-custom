@@ -1,3 +1,4 @@
+---
 apiVersion: capsule.clastix.io/v1beta1
 kind: Tenant
 metadata:
@@ -13,21 +14,20 @@ spec:
   namespaceOptions:
     quota: 1
 ---
-
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: online-boutique
-  namespace: ecommerce-apps
+  name: ecommerce-apps
+  namespace: k8saas-system
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: ecommerce-online-boutique
+    namespace: ecommerce-apps
     name: in-cluster
-  project: ecommerce
+  project: k8saas
   source:
-    path: ecommerce-online-boutique
+    path: ecommerce-apps
     repoURL: http://gitea-http.k8saas-system.svc:3000/root/k8saas-frozen
     targetRevision: HEAD
   syncPolicy:
