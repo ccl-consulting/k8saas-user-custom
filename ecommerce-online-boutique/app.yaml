@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: online-boutique
+  namespace: ecommerce-apps
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: ecommerce-online-boutique
+    name: in-cluster
+  project: ecommerce
+  source:
+    path: ecommerce-online-boutique
+    repoURL: http://gitea-http.k8saas-system.svc:3000/root/k8saas-frozen
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
